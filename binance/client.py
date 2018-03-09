@@ -73,7 +73,7 @@ class Client(object):
     AGG_BUYER_MAKES = 'm'
     AGG_BEST_MATCH = 'M'
 
-    def __init__(self, api_key, api_secret, requests_params=None):
+    def __init__(self, api_key, api_secret, requests_params=None, proxies = None):
         """Binance API Client constructor
 
         :param api_key: Api Key
@@ -89,13 +89,15 @@ class Client(object):
         self.API_SECRET = api_secret
         self.session = self._init_session()
         self._requests_params = requests_params
-
+        self.proxies = proxies
         # init DNS and SSL cert
         self.ping()
 
     def _init_session(self):
 
         session = requests.session()
+        if self.proxies:
+            session.proxies = self.proxies
         session.headers.update({'Accept': 'application/json',
                                 'User-Agent': 'binance/python',
                                 'X-MBX-APIKEY': self.API_KEY})
