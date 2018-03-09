@@ -73,7 +73,7 @@ class Client(object):
     AGG_BUYER_MAKES = 'm'
     AGG_BEST_MATCH = 'M'
 
-    def __init__(self, api_key, api_secret, requests_params=None, proxies = None):
+    def __init__(self, api_key, api_secret, proxies=None, requests_params=None):
         """Binance API Client constructor
 
         :param api_key: Api Key
@@ -87,9 +87,9 @@ class Client(object):
 
         self.API_KEY = api_key
         self.API_SECRET = api_secret
+        self.proxies = proxies
         self.session = self._init_session()
         self._requests_params = requests_params
-        self.proxies = proxies
         # init DNS and SSL cert
         self.ping()
 
